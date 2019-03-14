@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PHONE DIRECTORY</title>
+
+
+<style>
+.container{overflow: hidden}
+.tab{float: left;}
+.tab-2{margin-left: 50px}
+.tab-2 input{display: block;margin-bottom: 10px}
+tr{transition:all .25s ease-in-out}
+tr:hover{background-color:#EEE;cursor: pointer}
+
+
+input[type=text]
+{
+width:200px; 	
+height:40px;
+box-sizing:border-box;
+border:2px solid black;
+border-radius:4px;
+}
+
+
+div{
+background-color:RGBA(0,2,0,0.36);
+font-size:20px;
+margin-top:50px;
+width:550px;
+border:3px solid black;
+padding-top:40px;
+padding-bottom:50px;
+}
+
+.button{
+background-color:#4CAF50;
+color:black;
+padding: 15px 32px;
+font-size:16px;
+}
+p1{
+color:black;
+font-size:40px;
+
+}
+table, td, th {  
+ 
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 70%;
+}
+
+th, td {
+  padding: 15px;
+}
+body
+{
+background-image:url("img.jpg");
+background-repeat:no-repeat;
+background-size : 100% 100%;
+}
+</style>
+        
+    </head>
+    <body>
+     <center>
+<p1>PHONE DIRECTORY</p1>    
+            <div>
+			<table>
+                <tr>
+				<td>Name </td>
+				<td><input type="text" name="fname" placeholder="enter your name"  id="fname"></td>
+                </tr>
+				<tr>
+                <td>Phone Number </td>
+				<td><input type="text" placeholder="enter your phone number" name="fphone" id="fphone"></td>
+				</tr>
+                </table>
+                <br><button  class="button" onclick="addHtmlTableRow();">Add</button>
+             
+           </div>
+			<div>
+			
+             <table  border="1px solid #ddd" id="table">
+             Select the Subscriber to remove  from the list.<br><br><br><br>
+			 <tr>
+			 <td>sruthi</td>
+			 <td>782163524</td>
+			 </tr>
+			 <tr>
+			 <td>swathy</td>
+			 <td>782476347</td>
+			 </tr>
+             </table><br>
+			    <button class ="button" onclick="removeSelectedRow();">Remove</button>
+            </div>
+    
+        </center>
+        <script>
+            
+            var rIndex,
+                table = document.getElementById("table");
+            
+            function checkEmptyInput()
+            {
+                var isEmpty = false,
+                    fname = document.getElementById("fname").value,
+                   
+                    fphone = document.getElementById("fphone").value;
+            
+                if(fname === ""){
+                    alert("Name Connot Be Empty");
+                    isEmpty = true;
+                }
+                
+                else if(fphone === ""){
+                    alert("Phone Number Connot Be Empty");
+                    isEmpty = true;
+                }
+                return isEmpty;
+            }
+            
+            
+            function addHtmlTableRow()
+            {
+                
+                if(!checkEmptyInput())
+				{
+			
+                var newRow = table.insertRow(table.length),
+                    cell1 = newRow.insertCell(0),
+                    cell2 = newRow.insertCell(1),
+                    fname = document.getElementById("fname").value,
+                    fphone = document.getElementById("fphone").value;
+                  	cell1.innerHTML = fname;
+                    cell2.innerHTML = fphone;
+                
+				
+				  selectedRowToInput();
+            }
+            }
+            
+         
+            function selectedRowToInput()
+            {
+                
+                for(var i = 1; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function()
+                    {
+                    
+                      rIndex = this.rowIndex;
+                      document.getElementById("fname").value = this.cells[0].innerHTML;
+                      document.getElementById("fphone").value = this.cells[1].innerHTML;
+                    
+                    };
+                }
+            }
+            selectedRowToInput();
+            
+            function editHtmlTbleSelectedRow()
+            {
+                var fname = document.getElementById("fname").value,
+                    fphone = document.getElementById("fphone").value;
+                  
+               if(!checkEmptyInput()){
+                table.rows[rIndex].cells[0].innerHTML = fname;
+                table.rows[rIndex].cells[1].innerHTML = fphone;
+            
+              }
+            }
+            function removeSelectedRow()
+            {
+                table.deleteRow(rIndex);
+                document.getElementById("fname").value = "";
+                document.getElementById("fphone").value = "";
+               
+            }
+        </script>
+        
+    </body>
+</html>
